@@ -1,3 +1,5 @@
+import { useMemo } from "react";
+
 const post = {
 	adult: false,
 	backdrop_path: '/4HodYYKEIsGOdinkGi2Ucz6X9i0.jpg',
@@ -14,18 +16,29 @@ const post = {
 	vote_average: 8.5,
 	vote_count: 2812
 }
-export default function Post({post, addFavorite}) {
+export default function Post({post, addFavorite, favorites, removeFavorite}) {
+
+	const isSaved = useMemo(() => {
+		if ( favorites ){
+			const favIds = favorites.map(fav => fav.id);
+			return favIds.includes(post.id);
+		}
+	}, [favorites])
 	const imagePath = `https://image.tmdb.org/t/p/w300/${ post.poster_path }`
 	return <article className="col-4 mb-5">
 		<div className="card mx-auto" style={ { width: "250px", aspectRatio: "1/1" } }>
 			<img src={imagePath} alt="" className={ 'card-img-top' }/>
 			<div className="card-body ">
 				<h5 className="card-title ">{ post.title }</h5>
+				<h4>{JSON.stringify(isSaved)}</h4>
 				<p className={ "lead" }>Release Date{ post.release_date }</p>
 				<p className={ "lead" }>Vote Average{ post.vote_count }</p>
-				<button onClick={async () => {
+				<button className={'btn btn-primary'} onClick={async () => {
 					await addFavorite(post);
 				}}>Add Favorite</button>
+				<button className={'btn btn-success'} onClick={async () => {
+					await removeFavorite(post)
+				}}>Remove Favorite</button>
 			</div>
 		</div>
 	</article>

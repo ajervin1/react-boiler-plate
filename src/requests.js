@@ -1,5 +1,37 @@
 import axios from 'axios'
-
-const AUTH_TOKEN = "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJhdXRoLXNlcnZpY2UiLCJpYXQiOjE2ODk2OTYxODQsImF6cCI6IjE4MjNjMzFmN2QzLTc0NWEtNjU4OS0wMDA1LWQ4ZThmZTBhNDRjMiIsImV4cCI6MTY4OTc4MjU4NCwic3ViIjoiY2xpZW50LzE4MjNjMzFmN2QzLTc0NWEtNjU4OS0wMDA1LWQ4ZThmZTBhNDRjMiIsInNjb3BlcyI6InJlYWQiLCJ2YWxpZF9hZGRyIjoiMjYwMDo4ODAwOjcwYTU6MjgwMDo3MDE4OjJlYjE6MjY2NTozYjU3IiwidmFsaWRfYWdlbnQiOiJNb3ppbGxhLzUuMCAoV2luZG93cyBOVCAxMC4wOyBXaW42NDsgeDY0OyBydjoxMDkuMCkgR2Vja28vMjAxMDAxMDEgRmlyZWZveC8xMTUuMCIsInJhdGUiOi0xLCJodHRwczovL3JlZGdpZnMuY29tL3Nlc3Npb24taWQiOiJVZVVnWG9yUlNOR2NRdkJZVjNOaW5hIn0.Xet8K2aa6X-zmHXpYpNADcIpiTwvjVPu5o7jfzEmopD8DJgR1dXxiiyRgF-bM_8Owiqomu-DL-ESLFCHD9mRJM2N7JkHoWeYGhpT6sgSPl_dBSMF2UVmnlGzJ6EV_EOqN7l0mTXxO74Ay3aPlsW6ObdwfKmqqacwE7AZFHKh4x0nR8kTqto8AS-GnYbXlJdvsOUF1adZvRpDuwTro9eJeSnN_DqbViK8uYEbyG09F8GsnryrifRdJ68xK4UsPvX3Qr-1ALlsJwKiRGYEGhb8aTKEHL1SMOs2eRGz3WpycJIT3ClpTf_4jLiadvdVlmf-QrgiUK8IdqLufSB3kapbFw"
-axios.defaults.baseURL = 'https://api.redgifs.com/v2';
+const AUTH_TOKEN = "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI2NDNiMDkzOTNiY2IxZTRlZDkxOTU1OWQ2ZDg2MjA3YiIsInN1YiI6IjY0ZDJlNGZlZGQ5MjZhMDFlNjI2YmM4MiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.k4rGnO9tQgIdAFzX-ZRXsMSrwD-rFdH1Ilr3QzyThFc"
+axios.defaults.baseURL = 'https://api.themoviedb.org/3';
 axios.defaults.headers.common['Authorization'] = `Bearer ${ AUTH_TOKEN }`;
+const api = axios.create({
+	baseURL: 'https://api.themoviedb.org/3',
+})
+api.defaults.headers.common['Authorization'] = `Bearer ${ AUTH_TOKEN }`;
+
+export async function getTopRated(  ) {
+	const {data} = await axios.get('/movie/top_rated');
+	return data;
+}
+export async function getPopularMovies(  ) {
+	const {data} = await axios.get('/movie/popular');
+	return data;
+}
+export async function getNowPlaying(  ) {
+	const {data} = await axios.get('/movie/now_playing');
+	return data;
+}
+
+export async function addPosts( posts ) {
+	const results = await axios.post('http://localhost:8000/post', posts);
+	console.log(results);
+	return results
+}
+const exampleUser = {
+	id: 'userid',
+	email: "",
+
+}
+export async function addUser( user ) {
+	const result = await axios.post('http://localhost:8000/user', user);
+
+	return result
+}

@@ -7,16 +7,13 @@ import { useEffect, useMemo } from "react";
 import { addPosts, addUser, getNowPlaying } from "./requests";
 import { useDispatch, useSelector } from "react-redux";
 import { setPosts, setUser, } from "./store";
-import Post from "./components/Post";
 import axios from "axios";
 import NavBar from "./components/NavBar";
-import HomePage from "./HomePage";
-import FavoritesPage from "./FavoritesPage";
+import HomePage from "./pages/HomePage";
+import FavoritesPage from "./pages/FavoritesPage";
 
 function App() {
 	const dispatch = useDispatch();
-	const state = useSelector(state => state);
-
 
 	useEffect(() => {
 		auth.onAuthStateChanged(async user => {

@@ -1,14 +1,14 @@
 
-import './App.css';
+import '../App.css';
 
-import { auth, db, firebase } from "./firestore";
+import { auth, db, firebase } from "../firestore";
 import { useEffect, useMemo } from "react";
-import { addPosts, addUser, getNowPlaying } from "./requests";
+import { addPosts, addUser, getNowPlaying } from "../requests";
 import { useDispatch, useSelector } from "react-redux";
-import { setPosts, setUser, } from "./store";
-import Post from "./components/Post";
+import { setPosts, setUser, } from "../store";
+import Post from "../components/Post";
 import axios from "axios";
-import NavBar from "./components/NavBar";
+import NavBar from "../components/NavBar";
 
 function FavoritePage() {
 	const dispatch = useDispatch();

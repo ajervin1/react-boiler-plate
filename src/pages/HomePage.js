@@ -1,14 +1,14 @@
 import { Route, Router, Routes } from 'react-router-dom'
 
-import './App.css';
-import { auth, db, firebase } from "./firestore";
+import '../App.css';
+import { auth, db, firebase } from "../firestore";
 import { useEffect, useMemo } from "react";
-import { addPosts, addUser, getNowPlaying } from "./requests";
+import { addPosts, addUser, getNowPlaying } from "../requests";
 import { useDispatch, useSelector } from "react-redux";
-import { setPosts, setUser, } from "./store";
-import Post from "./components/Post";
+import { setPosts, setUser, } from "../store";
+import Post from "../components/Post";
 import axios from "axios";
-import NavBar from "./components/NavBar";
+import NavBar from "../components/NavBar";
 
 function HomePage() {
 	const dispatch = useDispatch();
@@ -29,23 +29,6 @@ function HomePage() {
 			// await addPosts(data.results);
 		})();
 
-	}, [])
-	useEffect(() => {
-		auth.onAuthStateChanged(async user => {
-			if ( user ) {
-				const userData = user._delegate;
-
-				const payload = {
-					id: userData.uid,
-					email: userData.email,
-				}
-				const { data } = await axios.post('http://localhost:8000/user', payload);
-				dispatch(setUser(data));
-
-			} else {
-				dispatch(setUser(null));
-			}
-		})
 	}, [])
 	return (<div className="home">
 			<div className="pt-5">

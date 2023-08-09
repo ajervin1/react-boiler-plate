@@ -1,4 +1,5 @@
 import { useMemo } from "react";
+import './Post.css'
 
 const post = {
 	adult: false,
@@ -16,30 +17,43 @@ const post = {
 	vote_average: 8.5,
 	vote_count: 2812
 }
-export default function Post({post, addFavorite, favorites, removeFavorite}) {
+export default function Post( { post, addFavorite, favorites, removeFavorite } ) {
 
 	const isSaved = useMemo(() => {
-		if ( favorites ){
+		if ( favorites ) {
 			const favIds = favorites.map(fav => fav.id);
 			return favIds.includes(post.id);
 		}
-	}, [favorites])
-	const imagePath = `https://image.tmdb.org/t/p/w300/${ post.poster_path }`
-	return <article className="col-4 mb-5">
-		<div className="card mx-auto" style={ { width: "250px", aspectRatio: "1/1" } }>
-			<img src={imagePath} alt="" className={ 'card-img-top' }/>
-			<div className="card-body ">
-				<h5 className="card-title ">{ post.title }</h5>
-				<h4>{JSON.stringify(isSaved)}</h4>
-				<p className={ "lead" }>Release Date{ post.release_date }</p>
-				<p className={ "lead" }>Vote Average{ post.vote_count }</p>
-				<button className={'btn btn-primary'} onClick={async () => {
-					await addFavorite(post);
-				}}>Add Favorite</button>
-				<button className={'btn btn-success'} onClick={async () => {
-					await removeFavorite(post)
-				}}>Remove Favorite</button>
-			</div>
+	}, [ favorites ]);
+	let heartButton;
+	if ( isSaved ) {
+		heartButton = <i onClick={ () => {removeFavorite(post)}} className="heart-button text-danger fa fa-heart fs-3"/>
+	} else {
+		heartButton = <i onClick={ () => {addFavorite(post)}} className="heart-button text-white fa fa-heart fs-3"/>
+	}
+
+
+	const imagePath = `https://image.tmdb.org/t/p/w220_and_h330_face/${ post.poster_path }`
+	return <div key={post.id} className="post card shadow rounded overflow-hidden">
+		<div className="img-container">
+			<img src={ imagePath } alt="" className={ '' }/>
 		</div>
-	</article>
+		<div className="card-body pb-1 position-relative">
+			<h2 className="h6 fw-bold">{ post.title }</h2>
+			<p className={ 'text-muted opacity-75' }>Jun 06, 2023</p>
+			{ heartButton }
+		</div>
+	</div>
+
 }
+
+// <h5 className="card-title small">{ post.title }</h5>
+// <h4>{JSON.stringify(isSaved)}</h4>
+// <p className={ "lead" }>Release Date{ post.release_date }</p>
+// <p className={ "lead" }>Vote Average{ post.vote_count }</p>
+// <button className={'btn btn-primary'} onClick={async () => {
+// 	await addFavorite(post);
+// }}>Add Favorite</button>
+// <button className={'btn btn-success'} onClick={async () => {
+// 	await removeFavorite(post)
+// }}>Remove Favorite</button>

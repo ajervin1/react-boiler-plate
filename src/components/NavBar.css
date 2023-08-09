@@ -4,3 +4,12 @@
 	color: #fff;
 	height: 5.5rem;
 }
+
+.navbar a.active.link {
+	color: white;
+	font-weight: 500;
+}
+.navbar a.link {
+	color: #a9a0a0;
+	font-weight: 400;
+}

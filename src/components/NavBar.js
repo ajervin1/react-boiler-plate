@@ -1,5 +1,5 @@
 // In control of logging users in and out
-import { NavLink } from 'react-router-dom'
+import { NavLink, Link } from 'react-router-dom'
 import './NavBar.css'
 import { useDispatch, useSelector } from "react-redux";
 import { auth, firebase } from "../firestore";
@@ -28,9 +28,13 @@ export default function NavBar() {
 	}, [state.app.user])
 	return <header className="navbar">
 		<div className="container d-flex align-items-center">
-			<NavLink to="/" className={"d-flex text-decoration-none "}>
+			<Link to="/" className={"d-flex text-decoration-none "}>
 				<i className="fa fa-yelp fa-2x text-white me-2"></i> <h2 className={'text-white'}>Home</h2>
-			</NavLink>
+			</Link>
+			<div className="middle-nav">
+				<NavLink to={'/'} className={'fs-4 me-3 link'}>Home</NavLink>
+				<NavLink to={'/favorites'} className={"fs-4 link"}>Favorites</NavLink>
+			</div>
 			<div className="actions">
 				{authButton}
 			</div>

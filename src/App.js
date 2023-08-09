@@ -1,8 +1,7 @@
-import { Route, Router, Routes } from 'react-router-dom'
+import { Route, Router, Routes, BrowserRouter } from 'react-router-dom'
 
 import './App.css';
-import HomePage from "./pages/HomePage";
-import DetailsPage from "./pages/DetailsPage";
+
 import { auth, db, firebase } from "./firestore";
 import { useEffect, useMemo } from "react";
 import { addPosts, addUser, getNowPlaying } from "./requests";
@@ -11,27 +10,14 @@ import { setPosts, setUser, } from "./store";
 import Post from "./components/Post";
 import axios from "axios";
 import NavBar from "./components/NavBar";
+import HomePage from "./HomePage";
+import FavoritesPage from "./FavoritesPage";
 
 function App() {
 	const dispatch = useDispatch();
 	const state = useSelector(state => state);
-	async function addFavorite( favorite ) {
-		const { data } = await axios.post(`http://localhost:8000/user/${ state.app.user._id }/favorites`, favorite);
-		dispatch(setUser(data));
-	}
-	async function removeFavorite( favorite ) {
-		const { data } = await axios.post(`http://localhost:8000/user/${ state.app.user._id }/favorites/remove`, favorite);
 
-		dispatch(setUser(data));
-	}
-	useMemo(() => {
-		(async () => {
-			const data = await getNowPlaying();
-			dispatch(setPosts(data.results))
-			// await addPosts(data.results);
-		})();
 
-	}, [])
 	useEffect(() => {
 		auth.onAuthStateChanged(async user => {
 			if ( user ) {
@@ -49,17 +35,16 @@ function App() {
 			}
 		})
 	}, [])
-	return (<div className="App">
+	return (<BrowserRouter>
 			<NavBar/>
-			<div className="container pt-5">
-				<div className="row flex-wrap justify-content-between">
-					{ state.app.posts && state.app.user && state.app.posts.map(post => {
-						return <Post key={post.id} favorites={ state.app.user?.favorites } post={ post } addFavorite={ addFavorite }
-						             removeFavorite={ removeFavorite }/>
-					}) }
-				</div>
+			<div className="container">
+				<Routes>
+					<Route path={'/'} element={<HomePage/>} />
+					<Route path={'/favorites'} element={<FavoritesPage />} />
+				</Routes>
 			</div>
-		</div>
+	</BrowserRouter>
+
 	);
 }
 

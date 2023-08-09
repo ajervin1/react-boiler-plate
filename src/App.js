@@ -25,6 +25,10 @@ function App() {
 	async function logout(  ) {
 		await auth.signOut()
 	}
+	async function addFavorite( favorite ) {
+		const {data} = await axios.post(`http://localhost:8000/user/${state.app.user._id}/favorites`,favorite);
+		dispatch(setUser(data));
+	}
 	useMemo(  () => {
 
 		(async () => {
@@ -64,7 +68,7 @@ function App() {
 			<div className="container">
 				<div className="row">
 					{state.app.posts && state.app.posts.map(post => {
-						return <Post post={post} />
+						return <Post post={post} addFavorite={addFavorite} />
 					})}
 				</div>
 			</div>

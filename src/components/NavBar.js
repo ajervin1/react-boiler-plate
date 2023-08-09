@@ -29,11 +29,11 @@ export default function NavBar() {
 	return <header className="navbar">
 		<div className="container d-flex align-items-center">
 			<Link to="/" className={"d-flex text-decoration-none "}>
-				<i className="fa fa-yelp fa-2x text-white me-2"></i> <h2 className={'text-white'}>Home</h2>
+				<i className="fa fa-yelp fa-2x text-muted me-2"></i> <h3 className={'text-white fw-normal'}>Logo</h3>
 			</Link>
 			<div className="middle-nav">
-				<NavLink to={'/'} className={'fs-4 me-3 link'}>Home</NavLink>
-				<NavLink to={'/favorites'} className={"fs-4 link"}>Favorites</NavLink>
+				<NavLink to={'/'} className={'fs-5 me-3 link'}>Home</NavLink>
+				<NavLink to={'/favorites'} className={"fs-5 link"}>Favorites</NavLink>
 			</div>
 			<div className="actions">
 				{authButton}

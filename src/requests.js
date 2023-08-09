@@ -7,6 +7,8 @@ const api = axios.create({
 })
 api.defaults.headers.common['Authorization'] = `Bearer ${ AUTH_TOKEN }`;
 
+
+/* Api Calls */
 export async function getTopRated(  ) {
 	const {data} = await axios.get('/movie/top_rated');
 	return data;
@@ -20,18 +22,14 @@ export async function getNowPlaying(  ) {
 	return data;
 }
 
+
+/* Local Api Calls */
 export async function addPosts( posts ) {
 	const results = await axios.post('http://localhost:8000/post', posts);
 	console.log(results);
 	return results
 }
-const exampleUser = {
-	id: 'userid',
-	email: "",
-
-}
 export async function addUser( user ) {
 	const result = await axios.post('http://localhost:8000/user', user);
-
 	return result
 }

@@ -26,7 +26,7 @@ function HomePage() {
 		(async () => {
 			const data = await getNowPlaying();
 			dispatch(setPosts(data.results))
-			// await addPosts(data.results);
+			await addPosts(data.results);
 		})();
 
 	}, [])
